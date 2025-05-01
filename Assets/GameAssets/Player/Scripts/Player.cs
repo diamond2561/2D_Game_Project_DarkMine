@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
-        
     }
 
     private void MovePlayer()
@@ -25,6 +24,9 @@ public class Player : MonoBehaviour
         {
             _playerMover.MovePlayer(direction);
             _playerLight.SetLightDirection(direction); // Передаем направление в свет
+
+            // Звук шагов: Воспроизводится, когда игрок движется.
+
         }
         else
         {
@@ -38,10 +40,14 @@ public class Player : MonoBehaviour
         if (_inputReader.IsLightSwitch)
         {
             _playerLight.TurnOnThePlayerLight();
+
+            // Звук включения лампы: Воспроизводится при включении света.
         }
         else
         {
             _playerLight.TurnOffThePlayerLight();
+
+            // Звук выключения лампы: Воспроизводится при выключении света.
         }
     }
 }
