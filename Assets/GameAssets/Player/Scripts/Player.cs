@@ -4,29 +4,44 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private InputReader _inputReader;
     [SerializeField] private PlayerMover _playerMover;
+    [SerializeField] private PlayerLight _playerLight;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Update()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        HandleLight();
     }
 
     private void FixedUpdate()
     {
+        MovePlayer();
+        
+    }
+
+    private void MovePlayer()
+    {
         Vector2 direction = _inputReader.Direction;
+
         if (direction.magnitude > 0.1f)
         {
             _playerMover.MovePlayer(direction);
+            _playerLight.SetLightDirection(direction); // Передаем направление в свет
         }
         else
         {
             _playerMover.MovePlayer(Vector2.zero);
+        }
+    }
+
+    private void HandleLight()
+    {
+        // Включаем или выключаем свет в зависимости от состояния IsLightSwitch
+        if (_inputReader.IsLightSwitch)
+        {
+            _playerLight.TurnOnThePlayerLight();
+        }
+        else
+        {
+            _playerLight.TurnOffThePlayerLight();
         }
     }
 }
