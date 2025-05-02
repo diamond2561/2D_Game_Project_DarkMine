@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerMover _playerMover;
     [SerializeField] private PlayerLight _playerLight;
 
+    public bool IsMoving { get; private set; }
+
     private void Update()
     {
         HandleLight();
@@ -24,6 +26,7 @@ public class Player : MonoBehaviour
         {
             _playerMover.MovePlayer(direction);
             _playerLight.SetLightDirection(direction); // Передаем направление в свет
+            IsMoving = true;
 
             // Звук шагов: Воспроизводится, когда игрок движется.
 
@@ -31,6 +34,7 @@ public class Player : MonoBehaviour
         else
         {
             _playerMover.MovePlayer(Vector2.zero);
+            IsMoving = false;
         }
     }
 
