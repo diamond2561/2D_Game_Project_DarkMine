@@ -5,12 +5,14 @@ public class Player : MonoBehaviour
     [SerializeField] private InputReader _inputReader;
     [SerializeField] private PlayerMover _playerMover;
     [SerializeField] private PlayerLight _playerLight;
+    [SerializeField] private PlayerCollisionDetector _playerCollisionDetector;
 
     public bool IsMoving { get; private set; }
 
     private void Update()
     {
         HandleLight();
+        HandleItemPickup();
     }
 
     private void FixedUpdate()
@@ -52,6 +54,15 @@ public class Player : MonoBehaviour
             _playerLight.TurnOffThePlayerLight();
 
             // Звук выключения лампы: Воспроизводится при выключении света.
+        }
+    }
+
+    private void HandleItemPickup()
+    {
+        // Если нажата клавиша E, пытаемся подобрать предмет
+        if (_inputReader.IsItemPickup)
+        {
+            _playerCollisionDetector.TryPickupItem();
         }
     }
 }
