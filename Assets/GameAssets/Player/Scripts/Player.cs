@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     {
         HandleLight();
         HandleItemPickup();
+        TwitchPlayerLight();
     }
 
     private void FixedUpdate()
@@ -64,5 +65,18 @@ public class Player : MonoBehaviour
         {
             _playerCollisionDetector.TryPickupItem();
         }
+    }
+
+    private void TwitchPlayerLight()
+    {
+        if (IsMoving == true)
+        {
+            _playerLight.TwitchLight();
+        }
+        if (IsMoving == false)
+        {
+            _playerLight.transform.position = transform.position;
+        }
+
     }
 }

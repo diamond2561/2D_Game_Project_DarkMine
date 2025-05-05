@@ -10,13 +10,9 @@ public class GlobalLightSwither : MonoBehaviour
         if (_globalLight != null)
         {
             // Отключаем глобальный источник света
-            _globalLight.enabled = false;
-            _globalLight.intensity = 0f;
-            Debug.Log("Global 2D Light has been disabled.");
-        }
-        else
-        {
-            Debug.LogWarning("Global Light2D is not assigned!");
+            _globalLight.color = new Color(0.01f, 0.01f, 0.01f);
+            _globalLight.intensity = 0.1f;
+
         }
     }
 }
