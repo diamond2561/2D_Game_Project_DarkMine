@@ -80,7 +80,6 @@ fmod_editor.log
 # FMOD ассеты
 FMODStudioCache.asset
 Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset
-*.asset
 
 # Shader Graph settings
 ShaderGraphSettings.asset
