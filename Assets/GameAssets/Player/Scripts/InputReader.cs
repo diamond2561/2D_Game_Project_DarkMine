@@ -8,12 +8,14 @@ public class InputReader : MonoBehaviour
     public Vector2 Direction { get; private set; } // Направление движения
     public bool IsLightSwitch { get; private set; } // Состояние света (вкл/выкл)
     public bool IsItemPickup { get; private set; } // Состояние подбора предмета
+    public bool IsInputHide { get; private set; } // состояние пряток
 
     private void Update()
     {
         ToggleDirection();
         ToggleLight();
         ToggleItemsPickup();
+        ToggleHide();
     }
 
     private void ToggleDirection()
@@ -34,5 +36,10 @@ public class InputReader : MonoBehaviour
     private void ToggleItemsPickup()
     {
         IsItemPickup = Input.GetKeyDown(KeyCode.E); // Возвращает true только в момент нажатия клавиши E
+    }
+
+    private void ToggleHide()
+    {
+        IsInputHide = Input.GetKeyDown(KeyCode.Q); // Возвращает true только в момент нажатия клавиши Q
     }
 }
