@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EventFolder" id="{135c7d24-2cc8-4fa6-8fd7-c8c17bca2b1c}">
+		<property name="name">
+			<value>Flashlight</value>
+		</property>
+		<relationship name="folder">
+			<destination>{969b7bb5-5805-4e4c-941a-98daba014fd2}</destination>
+		</relationship>
+	</object>
+</objects>
