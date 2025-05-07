@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{fda785d3-86ae-44a8-bab7-6b99682c7850}">
+		<property name="assetPath">
+			<value>Flashlight/Flashlight1 - 1.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.31346938775510202</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6cca7fd4-b13c-440a-bc00-08adcfc5de79}</destination>
+		</relationship>
+	</object>
+</objects>
