@@ -2,7 +2,14 @@
 
 public class PlayerCollisionDetector : MonoBehaviour
 {
+    [SerializeField] private LayerMask _hidenObjectsLayer; // Слой объектов, в которых можно спрятаться
+
     private BasePickableItem _currentItem; // Хранит текущий доступный для подбора предмет
+    private BaseHidenObjects _currentHidenObject; // Хранит текущий объект, в котором можно спрятаться
+
+    public bool IsNearByHidenObject { get; private set; } // Флаг: находится ли игрок рядом с объектом, в котором можно спрятаться
+
+    public BaseHidenObjects CurrentHidenObject => _currentHidenObject; // Публичное свойство для получения текущего объекта
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -35,6 +42,29 @@ public class PlayerCollisionDetector : MonoBehaviour
             Debug.Log("Item picked up: " + _currentItem.name);
             _currentItem.Collect(); // Вызываем метод подбора предмета
             _currentItem = null; // Очищаем текущий предмет
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<BaseHidenObjects>(out BaseHidenObjects hidenObject))
+        {
+            _currentHidenObject = hidenObject; // Сохраняем ссылку на объект
+            Debug.Log("Подруга может спрятаться!");
+            IsNearByHidenObject = true; // Устанавливаем флаг
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<BaseHidenObjects>(out BaseHidenObjects hidenObject))
+        {
+            if (_currentHidenObject == hidenObject)
+            {
+                _currentHidenObject = null; // Очищаем ссылку
+                Debug.Log("Подруга уже не возле предмета в котором можно спрятаться!!");
+                IsNearByHidenObject = false; // Сбрасываем флаг
+            }
         }
     }
 }
