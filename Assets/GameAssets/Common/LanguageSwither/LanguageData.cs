@@ -87,6 +87,26 @@ public static class LanguageData
                 {"Русский", "Текст предыстории страница 2" }
             }
             },
+
+            // GUI
+            { "light_button", new Dictionary<string, string>()
+            {
+                {"English", "Light" },
+                {"Русский", "Свет" }
+            }
+            },
+            { "pick_up_button", new Dictionary<string, string>()
+            {
+                {"English", "Pick up" },
+                {"Русский", "Поднять" }
+            }
+            },
+            { "hide_button", new Dictionary<string, string>()
+            {
+                {"English", "Hide" },
+                {"Русский", "Спрятаться" }
+            }
+            },
         };
 
 

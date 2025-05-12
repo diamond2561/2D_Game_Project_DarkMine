@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -8,15 +9,26 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerCollisionDetector _playerCollisionDetector;
     [SerializeField] private PlayerSprite _playerSprite;
 
+    [SerializeField] private Button _lightButton;
+    [SerializeField] private Button _hideButton;
+    [SerializeField] private Button _pickUpButton;
+
     public bool IsMoving { get; private set; }
     public bool IsLightOn { get; private set; }
-
     public bool IsHide { get; private set; }
 
     // Переменные для хранения предыдущих состояний
     private bool _wasMoving;
     private bool _wasLightOn;
     private bool _wasHide;
+
+    private bool _shouldTryToHide = false;
+    private bool _shouldTryToPickUp = false;
+
+    private void Start()
+    {
+        InitButtons();
+    }
 
     private void Update()
     {
@@ -34,6 +46,24 @@ public class Player : MonoBehaviour
         MovePlayer();
     }
 
+    private void InitButtons()
+    {
+        if (_lightButton != null)
+        {
+            _lightButton.onClick.AddListener(ToggleLight);
+        }
+
+        if (_hideButton != null)
+        {
+            _hideButton.onClick.AddListener(ToggleHide);
+        }
+        if (_pickUpButton != null)
+        {
+            _pickUpButton.onClick.AddListener(TogglePickUp);
+        }
+    }    
+
+    // Движение игрока
     private void MovePlayer()
     {
         // Если игрок прячется, блокируем движение
@@ -62,6 +92,14 @@ public class Player : MonoBehaviour
         }
     }
 
+
+    // Свет Игрока
+    private void ToggleLight()
+    {
+        // Эмулируем нажатие клавиши включения/выключения света
+        _inputReader.ForceSetLightSwitch(!IsLightOn);
+    }
+
     private void HandleLight()
     {
         // Включаем или выключаем свет в зависимости от состояния IsLightSwitch, если игрок не прячется
@@ -74,52 +112,6 @@ public class Player : MonoBehaviour
             else
             {
                 UpdatePlayerLight(false); // Выключаем свет
-            }
-        }
-    }
-
-    private void HandleItemPickup()
-    {
-        // Если нажата клавиша E, пытаемся подобрать предмет
-        if (_inputReader.IsItemPickup)
-        {
-            _playerCollisionDetector.TryPickupItem();
-        }
-    }
-
-    private void HandleHide()
-    {
-        // Проверяем, была ли нажата клавиша Q
-        if (_inputReader.IsInputHide)
-        {
-            // Переключаем состояние IsHide только если игрок находится рядом с объектом, в котором можно спрятаться
-            if (_playerCollisionDetector.IsNearByHidenObject)
-            {
-                IsHide = !IsHide; // Переключаем состояние IsHide
-
-                // Управляем прозрачностью спрайта, светом и светом коробки в зависимости от состояния IsHide
-                if (IsHide)
-                {
-                    UpdatePlayerLight(false); // Выключаем свет игрока
-                    _playerSprite.MakeTransparent(); // Делаем спрайт прозрачным
-
-                    // Включаем свет коробки
-                    if (_playerCollisionDetector.CurrentHidenObject != null)
-                    {
-                        _playerCollisionDetector.CurrentHidenObject.TurnOnTheObjectLight();
-                    }
-                }
-                else
-                {
-                    _playerSprite.ResetTransparency(); // Восстанавливаем исходный цвет спрайта
-                    UpdatePlayerLight(_inputReader.IsLightSwitch); // Включаем свет игрока, если IsLightSwitch == true
-
-                    // Выключаем свет коробки
-                    if (_playerCollisionDetector.CurrentHidenObject != null)
-                    {
-                        _playerCollisionDetector.CurrentHidenObject.TurnOffTheObjectLight();
-                    }
-                }
             }
         }
     }
@@ -150,7 +142,75 @@ public class Player : MonoBehaviour
         }
     }
 
+    // Подбор предметов
+    private void TogglePickUp()
+    {
+        _shouldTryToPickUp = true;
+    }
 
+    private void HandleItemPickup()
+    {
+        if (_inputReader.IsItemPickup || _shouldTryToPickUp)
+        {
+            Debug.Log("[HandleItemPickup] Triggered via " + (_shouldTryToPickUp ? "Button" : "Keyboard"));
+
+            _playerCollisionDetector.TryPickupItem();
+
+            // Сброс флагов после использования
+            _inputReader.ForceSetItemPickup(false);
+            _shouldTryToPickUp = false;
+        }
+    }
+
+    // Прятки Игрока
+    private void ToggleHide()
+    {
+        _shouldTryToHide = true;
+    }
+
+    private void HandleHide()
+    {
+        // Объединяем нажатие с клавиатуры и с кнопки
+        if (_inputReader.IsInputHide || _shouldTryToHide)
+        {
+            Debug.Log($"[HandleHide] Triggered via {(_shouldTryToHide ? "Button" : "Keyboard")}");
+
+            if (_playerCollisionDetector.IsNearByHidenObject)
+            {
+                IsHide = !IsHide;
+
+                if (IsHide)
+                {
+                    UpdatePlayerLight(false);
+                    _playerSprite.MakeTransparent();
+
+                    if (_playerCollisionDetector.CurrentHidenObject != null)
+                    {
+                        _playerCollisionDetector.CurrentHidenObject.TurnOnTheObjectLight();
+                    }
+                }
+                else
+                {
+                    _playerSprite.ResetTransparency();
+                    UpdatePlayerLight(_inputReader.IsLightSwitch);
+
+                    if (_playerCollisionDetector.CurrentHidenObject != null)
+                    {
+                        _playerCollisionDetector.CurrentHidenObject.TurnOffTheObjectLight();
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Нельзя спрятаться — нет укрытия рядом.");
+            }
+
+            _inputReader.ForceSetInputHide(false);
+            _shouldTryToHide = false; // Сброс
+        }
+    }
+
+    
 
     // Метод проверки статуса игрока
     private void CheckPlayerStatus()
@@ -175,5 +235,5 @@ public class Player : MonoBehaviour
             _wasHide = IsHide; // Обновляем предыдущее состояние
             Debug.Log(IsHide ? "Подруга спряталась!" : "Подруга больше не прячется!");
         }
-    }    
+    }
 }

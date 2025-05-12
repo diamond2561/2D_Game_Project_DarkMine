@@ -35,11 +35,29 @@ public class InputReader : MonoBehaviour
 
     private void ToggleItemsPickup()
     {
-        IsItemPickup = Input.GetKeyDown(KeyCode.E); // Возвращает true только в момент нажатия клавиши E
+        IsItemPickup = Input.GetKeyDown(KeyCode.E); // true только в момент нажатия E
     }
 
     private void ToggleHide()
     {
-        IsInputHide = Input.GetKeyDown(KeyCode.Q); // Возвращает true только в момент нажатия клавиши Q
+        IsInputHide = Input.GetKeyDown(KeyCode.Q); // true только в момент нажатия Q
+    }
+
+    // Метод для программного изменения состояния света
+    public void ForceSetLightSwitch(bool value)
+    {
+        IsLightSwitch = value;
+    }
+
+    // Метод для программного изменения состояния прятания
+    public void ForceSetInputHide(bool value)
+    {
+        IsInputHide = value;
+    }
+
+    // Метод для программного изменения состояния подбора предмета
+    public void ForceSetItemPickup(bool value)
+    {
+        IsItemPickup = value;
     }
 }
