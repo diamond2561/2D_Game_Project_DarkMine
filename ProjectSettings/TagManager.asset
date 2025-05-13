@@ -15,8 +15,8 @@ TagManager:
   - Walls
   - EnviromentalObjects
   - HidenObjects
-  - 
-  - 
+  - Player
+  - Enemy
   - 
   - 
   - 

@@ -2,7 +2,7 @@
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class Enemy_1_Patrol : MonoBehaviour
+public class Enemy_2_Patrol : MonoBehaviour
 {
     [SerializeField] private Transform[] waypoints; // Массив точек патрулирования
     [SerializeField] private float reachDistance = 0.3f; // Расстояние, при котором точка считается достигнутой
