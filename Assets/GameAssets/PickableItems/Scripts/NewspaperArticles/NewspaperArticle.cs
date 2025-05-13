@@ -11,4 +11,9 @@ public class NewspaperArticle : BasePickableItem
         // NoteManager.Instance.AddNote(note);
         Debug.Log($"Заметка добавлена: {note.title}\nТекст заметки: {note.content}");
     }
+
+    public void DisableNoteOnMap()
+    {
+        gameObject.SetActive(false);
+    }
 }
