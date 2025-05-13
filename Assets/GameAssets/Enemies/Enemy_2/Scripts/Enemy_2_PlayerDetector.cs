@@ -1,28 +1,27 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Enemy_1_PlayerDetector : MonoBehaviour
+public class Enemy_2_PlayerDetector : MonoBehaviour
 {
-    [Header("Настройки обнаружения игрока")]
-    [SerializeField] private float _detectionRadius = 5f;  // радиус обнаружения
+    [SerializeField] private float _detectionRadius = 5f; // радиус обнаружения
+    [SerializeField] private LayerMask detectionLayerMask; // слой, на котором находится игрок
 
     public Vector2 PlayerPosition { get; private set; }
     public bool IsPlayerDetected { get; private set; }
-
     public bool WasPlayerDetectedOnce { get; private set; } // Флаг "игрок был обнаружен"
 
     void Update()
     {
-        IsPlayerDetected = CheckForPlayerInRadius();
+        // Обновляем состояние обнаружения игрока каждый кадр
+        IsPlayerDetected = CheckPlayerInLineOfSight();
 
-        // Если игрок обнаружен, устанавливаем флаг
         if (IsPlayerDetected)
         {
             WasPlayerDetectedOnce = true;
         }
     }
 
-    private bool CheckForPlayerInRadius()
+    private bool CheckPlayerInLineOfSight()
     {
         // Проверяем наличие игрока в радиусе обнаружения
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, _detectionRadius);
@@ -31,8 +30,9 @@ public class Enemy_1_PlayerDetector : MonoBehaviour
         {
             if (hit.TryGetComponent<Player>(out Player player))
             {
-                if (player.IsMoving == true)
+                if (player.IsLightOn == true || player.IsMoving == true)
                 {
+                    Debug.Log("Player detected");
                     PlayerPosition = player.transform.position;
                     return true;
                 }
@@ -40,6 +40,14 @@ public class Enemy_1_PlayerDetector : MonoBehaviour
         }
 
         return false;
+    }
+
+    // === Gizmos для отрисовки области обнаружения ===
+    private void OnDrawGizmos()
+    {
+        // Рисуем окружность вокруг врага
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _detectionRadius);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -57,11 +65,5 @@ public class Enemy_1_PlayerDetector : MonoBehaviour
     private void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, _detectionRadius);
     }
 }
