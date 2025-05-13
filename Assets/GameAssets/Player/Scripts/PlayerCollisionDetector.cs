@@ -8,6 +8,7 @@ public class PlayerCollisionDetector : MonoBehaviour
     private BaseHidenObjects _currentHidenObject; // Хранит текущий объект, в котором можно спрятаться
 
     public bool IsNearByHidenObject { get; private set; } // Флаг: находится ли игрок рядом с объектом, в котором можно спрятаться
+    public bool IsNearByPickableObject { get; private set; } // Флаг: находится ли игрок рядом с объектом, который можно подобрать 
 
     public BaseHidenObjects CurrentHidenObject => _currentHidenObject; // Публичное свойство для получения текущего объекта
 
@@ -18,6 +19,7 @@ public class PlayerCollisionDetector : MonoBehaviour
         {
             _currentItem = item; // Сохраняем ссылку на текущий предмет
             Debug.Log("Press E to pick up: " + item.name);
+            IsNearByPickableObject = true;
         }
     }
 
@@ -29,6 +31,7 @@ public class PlayerCollisionDetector : MonoBehaviour
             if (_currentItem == item)
             {
                 _currentItem = null;
+                IsNearByPickableObject = false;
                 Debug.Log("Item no longer in range.");
             }
         }
