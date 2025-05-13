@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events; 
 
 public class Player : MonoBehaviour
 {
@@ -24,6 +25,9 @@ public class Player : MonoBehaviour
 
     private bool _shouldTryToHide = false;
     private bool _shouldTryToPickUp = false;
+
+    // Событие, которое будет вызываться при подборе предмета
+    public UnityEvent PickUpNotes = new UnityEvent();
 
     private void Start()
     {
@@ -159,9 +163,12 @@ public class Player : MonoBehaviour
     {
         if (_inputReader.IsItemPickup || _shouldTryToPickUp)
         {
-            Debug.Log("[HandleItemPickup] Triggered via " + (_shouldTryToPickUp ? "Button" : "Keyboard"));
+            //Debug.Log("[HandleItemPickup] Triggered via " + (_shouldTryToPickUp ? "Button" : "Keyboard"));
 
             _playerCollisionDetector.TryPickupItem();
+
+            // Вызываем событие, если предмет был успешно подобран
+            PickUpNotes.Invoke();
 
             // Сброс флагов после использования
             _inputReader.ForceSetItemPickup(false);
@@ -180,7 +187,7 @@ public class Player : MonoBehaviour
         // Объединяем нажатие с клавиатуры и с кнопки
         if (_inputReader.IsInputHide || _shouldTryToHide)
         {
-            Debug.Log($"[HandleHide] Triggered via {(_shouldTryToHide ? "Button" : "Keyboard")}");
+            //Debug.Log($"[HandleHide] Triggered via {(_shouldTryToHide ? "Button" : "Keyboard")}");
 
             if (_playerCollisionDetector.IsNearByHidenObject)
             {

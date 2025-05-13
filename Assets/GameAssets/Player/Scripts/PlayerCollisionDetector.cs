@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using NUnit.Framework;
+using UnityEngine;
+
 
 public class PlayerCollisionDetector : MonoBehaviour
 {
@@ -18,7 +20,7 @@ public class PlayerCollisionDetector : MonoBehaviour
         if (other.gameObject.TryGetComponent<BasePickableItem>(out BasePickableItem item))
         {
             _currentItem = item; // Сохраняем ссылку на текущий предмет
-            Debug.Log("Press E to pick up: " + item.name);
+            //Debug.Log("Press E to pick up: " + item.name);
             IsNearByPickableObject = true;
         }
     }
@@ -32,7 +34,7 @@ public class PlayerCollisionDetector : MonoBehaviour
             {
                 _currentItem = null;
                 IsNearByPickableObject = false;
-                Debug.Log("Item no longer in range.");
+                //Debug.Log("Item no longer in range.");
             }
         }
     }
@@ -44,7 +46,7 @@ public class PlayerCollisionDetector : MonoBehaviour
         {
             Debug.Log("Item picked up: " + _currentItem.name);
             _currentItem.Collect(); // Вызываем метод подбора предмета
-            _currentItem = null; // Очищаем текущий предмет
+            //_currentItem = null; // Очищаем текущий предмет
         }
     }
 
@@ -69,5 +71,11 @@ public class PlayerCollisionDetector : MonoBehaviour
                 IsNearByHidenObject = false; // Сбрасываем флаг
             }
         }
+    }
+    
+
+    public BasePickableItem GetPickableItem()
+    {
+        return _currentItem;
     }
 }
