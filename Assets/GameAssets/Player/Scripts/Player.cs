@@ -28,6 +28,10 @@ public class Player : MonoBehaviour
     private void Start()
     {
         InitButtons();
+
+        // Изначально скрываем кнопки
+        ShowHideButton(false);
+        ShowPickUpButton(false);
     }
 
     private void Update()
@@ -39,6 +43,9 @@ public class Player : MonoBehaviour
 
         // Проверка статуса игрока только при изменении состояния
         CheckPlayerStatus();
+
+        // Обновляем состояние кнопок на основе триггеров
+        UpdateButtonStates();
     }
 
     private void FixedUpdate()
@@ -210,7 +217,34 @@ public class Player : MonoBehaviour
         }
     }
 
-    
+    // Методы скрытия кнопок
+    private void ShowHideButton(bool show)
+    {
+        if (_hideButton != null)
+        {
+            _hideButton.gameObject.SetActive(show);
+        }
+    }
+
+    private void ShowPickUpButton(bool show)
+    {
+        if (_pickUpButton != null)
+        {
+            _pickUpButton.gameObject.SetActive(show);
+        }
+    }
+
+    private void UpdateButtonStates()
+    {
+        if (_playerCollisionDetector != null)
+        {
+            // Активируем/деактивируем кнопку прятания
+            ShowHideButton(_playerCollisionDetector.IsNearByHidenObject);
+
+            // Активируем/деактивируем кнопку подбора предметов
+            ShowPickUpButton(_playerCollisionDetector.IsNearByPickableObject);
+        }
+    }
 
     // Метод проверки статуса игрока
     private void CheckPlayerStatus()
