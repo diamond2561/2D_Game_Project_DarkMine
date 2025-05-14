@@ -268,6 +268,7 @@ public class Player : MonoBehaviour
         {
             _wasLightOn = IsLightOn; // Обновляем предыдущее состояние
             Debug.Log(IsLightOn ? "Подруга включила лампу!" : "Подруга выключила лампу!");
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Flashlight/FlashlightClik", GetComponent<Transform>().position);// Юрий добавил для звука включения фонарика
         }
 
         // Проверка состояния прятания
