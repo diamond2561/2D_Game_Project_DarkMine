@@ -44,7 +44,7 @@
 			<value>320</value>
 		</property>
 		<property name="highCut">
-			<value>3200</value>
+			<value>1400</value>
 		</property>
 		<property name="wetLevel">
 			<value>0</value>
