@@ -15,5 +15,6 @@ public class NewspaperArticle : BasePickableItem
     public void DisableNoteOnMap()
     {
         gameObject.SetActive(false);
+        FMODUnity.RuntimeManager.PlayOneShot("event:/Paper/Paper", GetComponent<Transform>().position);// Юрий добавил для звука записок
     }
 }

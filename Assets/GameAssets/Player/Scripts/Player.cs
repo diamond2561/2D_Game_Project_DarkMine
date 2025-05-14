@@ -157,6 +157,7 @@ public class Player : MonoBehaviour
     private void TogglePickUp()
     {
         _shouldTryToPickUp = true;
+        //FMODUnity.RuntimeManager.PlayOneShot("event:/Paper/Paper", GetComponent<Transform>().position);// Юрий добавил для звука записок
     }
 
     private void HandleItemPickup()
@@ -276,6 +277,7 @@ public class Player : MonoBehaviour
         {
             _wasHide = IsHide; // Обновляем предыдущее состояние
             Debug.Log(IsHide ? "Подруга спряталась!" : "Подруга больше не прячется!");
+            FMODUnity.RuntimeManager.PlayOneShot("event:/Box/Box", GetComponent<Transform>().position);// Юрий добавил для звука Прятания в коробке
         }
     }
 }

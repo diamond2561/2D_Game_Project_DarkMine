@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{2c43a0a3-d1be-49ba-bcc0-8f47ba2acd63}">
+	<object class="AudioFile" id="{42f2cca3-3f49-47aa-b96d-5fcd5a7ff179}">
 		<property name="assetPath">
-			<value>Flashlight/Flashlight1 - 2.mp3</value>
+			<value>Box/BOXkik1.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
@@ -11,7 +11,7 @@
 			<value>2</value>
 		</property>
 		<property name="length">
-			<value>0.31346938775510202</value>
+			<value>1.0640816326530613</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{6cca7fd4-b13c-440a-bc00-08adcfc5de79}</destination>
