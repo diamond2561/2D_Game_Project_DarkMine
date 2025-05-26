@@ -6,10 +6,15 @@ public class NewspaperArticle : BasePickableItem
 
     protected override void OnCollect()
     {
-        // Добавляем заметку в менеджер заметок
+        // Получаем локализованные данные заметки
+        string localizedTitle = note.GetLocalizedTitle();
+        string localizedContent = note.GetLocalizedContent();
 
+        // Добавляем заметку в менеджер заметок
         // NoteManager.Instance.AddNote(note);
-        Debug.Log($"Заметка добавлена: {note.title}\nТекст заметки: {note.content}");
+
+        // Выводим информацию в консоль
+        Debug.Log($"Заметка добавлена: {localizedTitle}\nТекст заметки: {localizedContent}");
     }
 
     public void DisableNoteOnMap()

@@ -30,13 +30,20 @@ public class NoteReader : MonoBehaviour
 
     public void GetNewspaperArticle()
     {
+        // Получаем текущий собираемый предмет
         BasePickableItem _currentPickItem = _playerCollisionDetector.GetPickableItem();
 
+        // Проверяем, является ли предмет газетной статьей
         if (_currentPickItem is NewspaperArticle newspaper)
         {
+            // Отображаем интерфейс для чтения заметки
             ShowNoteReader();
-            _noteTitleText.text = newspaper.note.title;
-            _noteContentText.text = newspaper.note.content;
+
+            // Устанавливаем локализованный текст для заголовка и содержимого
+            _noteTitleText.text = newspaper.note.GetLocalizedTitle();
+            _noteContentText.text = newspaper.note.GetLocalizedContent();
+
+            // Деактивируем заметку на карте
             newspaper.DisableNoteOnMap();
         }
     }
