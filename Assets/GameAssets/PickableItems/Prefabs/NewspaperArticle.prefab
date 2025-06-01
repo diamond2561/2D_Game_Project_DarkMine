@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6331469627050102449}
   - component: {fileID: 6732791129116792028}
   - component: {fileID: 1530654547058717859}
+  - component: {fileID: 5747809933921173074}
   m_Layer: 0
   m_Name: NewspaperArticle
   m_TagString: Untagged
@@ -18,14 +19,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6331469627050102449
-Transform:
+--- !u!224 &6331469627050102449
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4156203807410898344}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,6 +34,11 @@ Transform:
   - {fileID: 5932169829304753026}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &6732791129116792028
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -93,9 +98,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   note:
-    title: "\u0417\u0430\u043F\u0438\u0441\u044C\u043A\u0430 1"
-    content: "\u0422\u0435\u043A\u0441\u0442 \u0437\u0430\u043F\u0438\u0441\u044C\u043A\u0438
-      \u043D\u043E\u043C\u0435\u0440 1"
+    titleKey: note_1_title
+    contentKey: note_1_content
+--- !u!222 &5747809933921173074
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4156203807410898344}
+  m_CullTransparentMesh: 1
 --- !u!1 &5144294785947125342
 GameObject:
   m_ObjectHideFlags: 0

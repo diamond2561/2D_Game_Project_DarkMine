@@ -9,10 +9,13 @@ public class Player : MonoBehaviour
     [SerializeField] private PlayerLight _playerLight;
     [SerializeField] private PlayerCollisionDetector _playerCollisionDetector;
     [SerializeField] private PlayerSprite _playerSprite;
+    [SerializeField] private PlayerNotepad _playerNotepad;
 
+    [SerializeField] private Button _notepadButton;
     [SerializeField] private Button _lightButton;
     [SerializeField] private Button _hideButton;
     [SerializeField] private Button _pickUpButton;
+    
 
     public bool IsMoving { get; private set; }
     public bool IsLightOn { get; private set; }
@@ -71,6 +74,11 @@ public class Player : MonoBehaviour
         if (_pickUpButton != null)
         {
             _pickUpButton.onClick.AddListener(TogglePickUp);
+        }
+
+        if (_notepadButton != null)
+        {
+            _notepadButton.onClick.AddListener(OpenNotepad);
         }
     }    
 
@@ -252,6 +260,12 @@ public class Player : MonoBehaviour
             // Активируем/деактивируем кнопку подбора предметов
             ShowPickUpButton(_playerCollisionDetector.IsNearByPickableObject);
         }
+    }
+
+    // Открытие / закрытие блокнота
+    private void OpenNotepad() 
+    {
+        _playerNotepad.ToggleNotepad();
     }
 
     // Метод проверки статуса игрока
