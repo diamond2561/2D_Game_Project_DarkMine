@@ -7,6 +7,7 @@ public class NoteReader : MonoBehaviour
     [SerializeField] private PlayerCollisionDetector _playerCollisionDetector;
     [SerializeField] private TextMeshProUGUI _noteTitleText;
     [SerializeField] private TextMeshProUGUI _noteContentText;
+    [SerializeField] private PlayerNotepad _playerNotepad;
 
     [SerializeField] private Button _closeButton;
 
@@ -45,6 +46,8 @@ public class NoteReader : MonoBehaviour
 
             // Деактивируем заметку на карте
             newspaper.DisableNoteOnMap();
+
+            _playerNotepad.AddItem(newspaper);
         }
     }
 }

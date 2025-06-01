@@ -107,6 +107,12 @@ public static class LanguageData
                 {"Русский", "Спрятаться" }
             }
             },
+            { "notepad_button", new Dictionary<string, string>()
+            {
+                {"English", "Notepad" },
+                {"Русский", "Блокнот" }
+            }
+            },
 
 
 
