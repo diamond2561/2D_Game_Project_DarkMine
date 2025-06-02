@@ -48,7 +48,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 0.71305805, g: 0.9054534, b: 0.94716984, a: 1}
+  m_Color: {r: 0.7365525, g: 0.9490196, b: 0.7137255, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
@@ -94,6 +94,8 @@ GameObject:
   m_Component:
   - component: {fileID: 456118038827394004}
   - component: {fileID: 8917179866666428242}
+  - component: {fileID: 8227083761251059067}
+  - component: {fileID: 8430321569308731900}
   m_Layer: 0
   m_Name: Enemy1Sprite
   m_TagString: Untagged
@@ -160,7 +162,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -576006781039431521, guid: 00cb7ecb90c8a91458d16c47fa37ef1f, type: 3}
+  m_Sprite: {fileID: 1420422204118189659, guid: 3d6bf52aa0fa9ab4db02252f7c06ffa5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -171,6 +173,41 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &8227083761251059067
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913982101303279637}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 35fb9e2d37dda494d89591830d9a2166, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8430321569308731900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913982101303279637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4ef9ebf672efa84a92bca4422a26862, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemy_1_Animations: {fileID: 8227083761251059067}
 --- !u!1 &3463841016519569215
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,6 +326,8 @@ MonoBehaviour:
   _enemyPlayerDetector: {fileID: 3610588557583560256}
   _enemyPatrol: {fileID: 46155342765382292}
   _fixedZPosition: 0
+  _enemyAnimations: {fileID: 8430321569308731900}
+  _spriteRenderer: {fileID: 8917179866666428242}
 --- !u!114 &3610588557583560256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,7 +365,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 1.5
+  m_Speed: 1
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
