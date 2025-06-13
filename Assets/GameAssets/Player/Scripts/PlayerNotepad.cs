@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,30 +10,36 @@ public class PlayerNotepad : MonoBehaviour
     private static PlayerNotepad _instance;
     public static PlayerNotepad Instance => _instance;
 
-    [SerializeField] private GameObject notepadPanel; // Ссылка на UI-панель блокнота
+    [SerializeField] private GamePause _gamePause;
+
+    [SerializeField] private GameObject notepadPanel; // Панель блокнота (ScrollView)
+    [SerializeField] private Button buttonPrefab;      // Префаб кнопки заметки
+    [SerializeField] private Transform contentPanel;   // Объект Content внутри Scroll View
+
+    [SerializeField] private TextMeshProUGUI _noteTitle;
+    [SerializeField] private TextMeshProUGUI _noteContent;
 
     private void Awake()
     {
         if (_instance == null)
         {
             _instance = this;
-            DontDestroyOnLoad(gameObject); // Сохраняем объект при переходе между сценами
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject); // Уничтожаем дубликаты
+            Destroy(gameObject);
         }
     }
 
     private void Start()
     {
-        // Деактивируем панель блокнота при старте
         notepadPanel.SetActive(false);
+        CreateNotesButton(); // Создаём кнопки при старте
     }
 
     private void Update()
     {
-        // Открываем/закрываем блокнот по нажатию клавиши N
         if (Input.GetKeyDown(KeyCode.N))
         {
             ToggleNotepad();
@@ -43,33 +50,66 @@ public class PlayerNotepad : MonoBehaviour
     {
         Items.Add(newspaperArticle);
         Debug.Log("Заметка добавлена в блокнот");
+        CreateNotesButton(); // Пересоздаём кнопки после добавления новой
     }
 
     public void ToggleNotepad()
     {
-        // Переключаем состояние панели блокнота
         notepadPanel.SetActive(!notepadPanel.activeSelf);
 
         if (notepadPanel.activeSelf)
         {
-            PopulateNotepad(); // Заполняем блокнот данными
+            _gamePause.PauseGame();   // Ставим игру на паузу
+        }
+        else
+        {
+            _gamePause.UnpauseGame(); // Снимаем с паузы
         }
     }
 
-    private void PopulateNotepad()
+    private void CreateNotesButton()
     {
-        //// Очищаем старые заметки
-        //foreach (Transform child in contentPanel)
-        //{
-        //    Destroy(child.gameObject);
-        //}
+        // Очистка предыдущих кнопок
+        foreach (Transform child in contentPanel)
+        {
+            Destroy(child.gameObject);
+        }
 
-        //// Создаем новые заметки
-        //foreach (var item in Items)
-        //{
-        //    GameObject noteInstance = Instantiate(notePrefab, contentPanel);
-        //    NoteDisplay noteDisplay = noteInstance.GetComponent<NoteDisplay>();
-        //    noteDisplay.SetNote(item);
-        //}
+        int noteIndex = 0; // Счётчик для нумерации заметок
+
+        foreach (NewspaperArticle article in Items)
+        {
+            Button newButton = Instantiate(buttonPrefab, contentPanel);
+
+            // Увеличиваем счётчик перед использованием: начнём с 1
+            noteIndex++;
+
+            // Устанавливаем текст кнопки как "Note X"
+            TMP_Text buttonText = newButton.GetComponentInChildren<TMP_Text>();
+            if (buttonText != null)
+            {
+                buttonText.text = "Note " + noteIndex;
+            }
+            else
+            {
+                Debug.LogError("Компонент TMP_Text не найден на кнопке!");
+            }
+
+            // Сохраняем ссылку на статью для обработчика
+            NewspaperArticle localCopy = article;
+
+            newButton.onClick.AddListener(() =>
+            {
+                OpenNote(localCopy);
+            });
+        }
+    }
+
+    private void OpenNote(NewspaperArticle article)
+    {
+        Debug.Log("Открыта заметка: " + article.note.GetLocalizedTitle());
+        // Здесь реализуй логику отображения самой заметки
+        _noteTitle.text = article.note.GetLocalizedTitle();
+        _noteContent.text = article.note.GetLocalizedContent();
     }
 }

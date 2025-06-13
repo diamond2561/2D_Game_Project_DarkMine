@@ -9,6 +9,8 @@ public class NoteReader : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _noteContentText;
     [SerializeField] private PlayerNotepad _playerNotepad;
 
+    [SerializeField] private GamePause _gamePause;
+
     [SerializeField] private Button _closeButton;
 
     private NewspaperArticle _newspaperArticle;
@@ -22,11 +24,13 @@ public class NoteReader : MonoBehaviour
     public void ShowNoteReader()
     {
         gameObject.SetActive(true);
+        _gamePause.PauseGame();
     }
 
     public void HideNoteReader()
     {
         gameObject.SetActive(false);
+        _gamePause.UnpauseGame();
     }
 
     public void GetNewspaperArticle()
