@@ -139,27 +139,27 @@ public static class LanguageData
 
             { "note_2_title", new Dictionary<string, string>()
             {
-                {"English", "Note 2 Title" },
-                {"Русский", "Заметка 2" }
+                {"English", "14.04.96" },
+                {"Русский", "14.04.96" }
             }
             },
             { "note_2_content", new Dictionary<string, string>()
             {
-                {"English", " Text note 2" },
-                {"Русский", "Текст второй заметки" },
+                {"English", "We're screwed. The whole country's gone to hell, and now they're coming after us. They’ve decided to shut down the mines — said we’ll work for another six months and then hit the road. Our boss dragged in some quack doctor — bet the old one already took off somewhere warmer, the bastard." },
+                {"Русский", "Приплыли. Все в стране похерили и за нас взялись. Шахты прикрыть решили, мол полгода отработаем и валите куда хотите. \r\nБугор наш доктора какого-то притараканил, старый-то уже небось свалил куда потеплее падла" },
             }
             },
 
             { "note_3_title", new Dictionary<string, string>()
             {
-                {"English", "Note 3 Title" },
-                {"Русский", "Заметка 3" }
+                {"English", "18.05.1996" },
+                {"Русский", "18.05.1996" }
             }
             },
             { "note_3_content", new Dictionary<string, string>()
             {
-                {"English", " Text note 3" },
-                {"Русский", "Текст 3 заметки" },
+                {"English", "One month down. The new quack’s got way too big a pair on him, but whatever — not like we’ve got much longer left. The guys are gossiping, saying some weird shit started happening in the barracks. Let ‘em write to Speed Info, Sportloto, and Juna too — they’re already losing their minds over the dope." },
+                {"Русский", "Месяц отбатрачили. Новый коновал борзый больно, да и хрен с ним, не долго уже осталось. \r\nМужики болтают, в бараке чертовщина началась. Пусть еще в спид инфо, спорт лото и Джуне напишут. Ополоумели уже от синьки" },
             }
             },
         };

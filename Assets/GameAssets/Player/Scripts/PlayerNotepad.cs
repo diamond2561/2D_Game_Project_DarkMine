@@ -2,10 +2,12 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
+using UnityEngine.SceneManagement;
 
 public class PlayerNotepad : MonoBehaviour
 {
-    public List<NewspaperArticle> Items = new List<NewspaperArticle>();
+    private List<NoteData> savedNotes = new List<NoteData>();
 
     private static PlayerNotepad _instance;
     public static PlayerNotepad Instance => _instance;
@@ -18,6 +20,8 @@ public class PlayerNotepad : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI _noteTitle;
     [SerializeField] private TextMeshProUGUI _noteContent;
+
+    private bool isFirstRun;
 
     private void Awake()
     {
@@ -34,8 +38,13 @@ public class PlayerNotepad : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log("Путь к файлу: " + GetSavePath());
+
+        // Загружаем сохранённые заметки, если они есть
+        LoadNotes();
+
         notepadPanel.SetActive(false);
-        CreateNotesButton(); // Создаём кнопки при старте
+        CreateNotesButton();
     }
 
     private void Update()
@@ -48,9 +57,16 @@ public class PlayerNotepad : MonoBehaviour
 
     public void AddItem(NewspaperArticle newspaperArticle)
     {
-        Items.Add(newspaperArticle);
+        NoteData data = new NoteData(
+            newspaperArticle.note.titleKey,
+            newspaperArticle.note.contentKey
+        );
+
+        savedNotes.Add(data);
         Debug.Log("Заметка добавлена в блокнот");
-        CreateNotesButton(); // Пересоздаём кнопки после добавления новой
+
+        CreateNotesButton();
+        SaveNotes(); // Сохраняем сразу после добавления
     }
 
     public void ToggleNotepad()
@@ -69,38 +85,32 @@ public class PlayerNotepad : MonoBehaviour
 
     private void CreateNotesButton()
     {
-        // Очистка предыдущих кнопок
         foreach (Transform child in contentPanel)
         {
             Destroy(child.gameObject);
         }
 
-        int noteIndex = 0; // Счётчик для нумерации заметок
+        int noteIndex = 0;
 
-        foreach (NewspaperArticle article in Items)
+        foreach (NoteData data in savedNotes)
         {
             Button newButton = Instantiate(buttonPrefab, contentPanel);
 
-            // Увеличиваем счётчик перед использованием: начнём с 1
             noteIndex++;
-
-            // Устанавливаем текст кнопки как "Note X"
             TMP_Text buttonText = newButton.GetComponentInChildren<TMP_Text>();
             if (buttonText != null)
             {
                 buttonText.text = "Note " + noteIndex;
             }
-            else
-            {
-                Debug.LogError("Компонент TMP_Text не найден на кнопке!");
-            }
 
-            // Сохраняем ссылку на статью для обработчика
-            NewspaperArticle localCopy = article;
-
+            // Создаём временную копию NewspaperArticle для открытия
             newButton.onClick.AddListener(() =>
             {
-                OpenNote(localCopy);
+                var tempNote = new Note { titleKey = data.titleKey, contentKey = data.contentKey };
+                var tempArticle = new GameObject().AddComponent<NewspaperArticle>();
+                tempArticle.note = tempNote;
+
+                OpenNote(tempArticle);
             });
         }
     }
@@ -112,4 +122,42 @@ public class PlayerNotepad : MonoBehaviour
         _noteTitle.text = article.note.GetLocalizedTitle();
         _noteContent.text = article.note.GetLocalizedContent();
     }
+
+    private string GetSavePath()
+    {
+        return Path.Combine(Application.persistentDataPath, "notepad_save.json");
+    }
+
+    public void SaveNotes()
+    {
+        string dataJson = JsonUtility.ToJson(new NoteDataListWrapper { notes = savedNotes });
+        File.WriteAllText(GetSavePath(), dataJson);
+        Debug.Log("Заметки сохранены!");
+    }
+
+    public void LoadNotes()
+    {
+        string path = GetSavePath();
+
+        if (File.Exists(path))
+        {
+            string dataJson = File.ReadAllText(path);
+            NoteDataListWrapper wrapper = JsonUtility.FromJson<NoteDataListWrapper>(dataJson);
+
+            savedNotes = wrapper.notes;
+            Debug.Log($"Загружено заметок: {savedNotes.Count}");
+        }
+        else
+        {
+            Debug.Log("Файл сохранения не найден.");
+        }
+    }
+
+    public void ClearNotes()
+    {
+        savedNotes.Clear();
+        CreateNotesButton(); // Обновляем UI
+        SaveNotes(); // Сохраняем пустой список
+        Debug.Log("Заметки очищены");
+    }   
 }

@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 6943839793932721884}
   - component: {fileID: 7853238759370955892}
   - component: {fileID: 1709247010392652044}
+  - component: {fileID: 3874247380263166251}
   m_Layer: 0
   m_Name: Cart
   m_TagString: Untagged
@@ -184,6 +185,22 @@ MonoBehaviour:
   _boxSprite: {fileID: 2274968279256690557}
   _normalBoxSprite: {fileID: -7226846049606579820, guid: c6987714352aecd4eaec36e9e133be10, type: 3}
   _hidenBoxSprite: {fileID: 4786267261548613810, guid: 71b83b47140000446b5e2feaf9e509d9, type: 3}
+--- !u!114 &3874247380263166251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4008124102541467776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!1 &6581371236110123888
 GameObject:
   m_ObjectHideFlags: 0
