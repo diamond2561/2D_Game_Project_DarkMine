@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{056fb714-dfad-4a2a-a894-7383ba36de02}">
+		<property name="assetPath">
+			<value>Box/BOXMET1.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.3430625</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{6cca7fd4-b13c-440a-bc00-08adcfc5de79}</destination>
+		</relationship>
+	</object>
+</objects>

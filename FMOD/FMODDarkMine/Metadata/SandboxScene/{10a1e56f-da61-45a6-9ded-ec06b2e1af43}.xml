@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="SandboxScene" id="{10a1e56f-da61-45a6-9ded-ec06b2e1af43}">
+		<property name="name">
+			<value>BOX_Klick</value>
+		</property>
+		<relationship name="folder">
+			<destination>{41721cac-40e0-4744-a21a-87c738f1a0f1}</destination>
+		</relationship>
+		<relationship name="markerTracks">
+			<destination>{805c39f0-f74d-421d-9e57-bac1c2a93d9d}</destination>
+		</relationship>
+		<relationship name="timeline">
+			<destination>{894b8315-7456-423c-b267-101e08ddfff4}</destination>
+		</relationship>
+		<relationship name="sandboxParameters">
+			<destination>{5bd0a6c0-63f7-4958-8e60-0c64b0ec7aff}</destination>
+		</relationship>
+		<relationship name="emitters">
+			<destination>{d2a108b3-15d9-4d48-81f1-3ca7456fd53f}</destination>
+			<destination>{0f878058-ee52-4511-ba69-6acb331ef79f}</destination>
+		</relationship>
+	</object>
+	<object class="MarkerTrack" id="{805c39f0-f74d-421d-9e57-bac1c2a93d9d}" />
+	<object class="Timeline" id="{894b8315-7456-423c-b267-101e08ddfff4}" />
+	<object class="SandboxParameter" id="{5bd0a6c0-63f7-4958-8e60-0c64b0ec7aff}">
+		<property name="parameterValue">
+			<value>1</value>
+		</property>
+		<relationship name="parameter">
+			<destination>{9d6d790b-ab42-4bee-9b62-a6c6c7faec02}</destination>
+		</relationship>
+	</object>
+	<object class="SandboxEmitter" id="{d2a108b3-15d9-4d48-81f1-3ca7456fd53f}">
+		<property name="positionX">
+			<value>-2.67499995</value>
+		</property>
+		<property name="positionZ">
+			<value>3.875</value>
+		</property>
+		<relationship name="event">
+			<destination>{d1b1604f-2caf-4349-9256-cc9e72a54755}</destination>
+		</relationship>
+	</object>
+	<object class="SandboxEmitter" id="{0f878058-ee52-4511-ba69-6acb331ef79f}">
+		<property name="positionX">
+			<value>-0.150000006</value>
+		</property>
+		<property name="positionZ">
+			<value>3.97500014</value>
+		</property>
+		<relationship name="event">
+			<destination>{ed421e17-c334-49f2-b409-91207f351891}</destination>
+		</relationship>
+	</object>
+</objects>
