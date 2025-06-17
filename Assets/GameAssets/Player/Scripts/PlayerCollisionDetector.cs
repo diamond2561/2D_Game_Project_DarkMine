@@ -37,6 +37,13 @@ public class PlayerCollisionDetector : MonoBehaviour
                 //Debug.Log("Item no longer in range.");
             }
         }
+
+        SoundTriggersZone triggerSounds = other.gameObject.GetComponent<SoundTriggersZone>();
+        if (triggerSounds != null) // Если компонент найден, воспроизводим звуки
+        {
+            Debug.Log("TrigerSounds detected!");
+            triggerSounds.PlayRandomTriggerSound();
+        }
     }
 
     public void TryPickupItem()
